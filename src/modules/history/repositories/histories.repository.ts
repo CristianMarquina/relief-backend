@@ -16,7 +16,9 @@ export const createHistory = async (
       url,
       is_deleted: false, // Default value for logical deletion
     });
+
     console.log("66666666666666666");
+    //console.log(history);
     return history;
   } catch (error) {
     console.error("Error in createHistory repository:", error);
@@ -26,16 +28,35 @@ export const createHistory = async (
 
 /**
  * Service to fetch all histories that are not deleted.
- * Only returns `url` and `name` fields.
+ * Only returns `id` ,`url` and `name` fields.
  */
-export const getHistories = async (): Promise<
-  { url: string; name: string }[]
-> => {
-  const histories = await History.findAll({
-    attributes: ["url", "name"], // Selecciona solo las columnas necesarias
+export const getHistories = async (
+  page: number,
+  size: number,
+  orderBy: string,
+  dir: string
+): Promise<{
+  total: number;
+  page: number;
+  size: number;
+  histories: { id: string; url: string; name: string }[];
+}> => {
+  const order = [[orderBy, dir.toUpperCase()]];
+  const offset = (page - 1) * size;
+  const { count, rows } = await History.findAndCountAll({
+    attributes: ["id", "url", "name"],
     where: {
-      is_deleted: false, // Filtra los registros no eliminados
+      is_deleted: false,
     },
+    limit: size,
+    offset,
+    order,
   });
-  return histories.map((history) => history.toJSON());
+
+  return {
+    total: count,
+    page,
+    size,
+    histories: rows.map((history) => history.toJSON()),
+  };
 };

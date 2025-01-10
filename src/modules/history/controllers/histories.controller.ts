@@ -28,13 +28,15 @@ export const createHistory = async (
     // Delegate database interaction to the repository
     const history = await createHistoryRepo(name, url);
     console.log("777777777777777777777");
+    //console.log(history);
     // Respond with a success message and the created entry
     res.status(200).json({
       message: "History created successfully.",
-      history: {
+
+      /*history: {
         name: history.name,
         url: history.url,
-      },
+      },*/
     });
   } catch (error) {
     console.error("Error creating history:", error);
@@ -50,7 +52,21 @@ export const createHistory = async (
  */
 export const listHistories = async (req: Request, res: Response) => {
   try {
-    const histories = await getHistoriesRepo();
+    const page = parseInt(req.query.page as string) || 1;
+    const size = parseInt(req.query.size as string) || 10;
+    const orderBy = (req.query.orderby as string) || "createdAt"; // Por defecto, ordenar por 'name'
+    const dir = (req.query.dir as string) || "DESC";
+    console.log("AQUIIII");
+    console.log(req.query);
+    console.log("page: " + page);
+    console.log("size: " + size);
+
+    if (isNaN(page) || isNaN(size) || page <= 0 || size <= 0) {
+      return res
+        .status(400)
+        .json({ message: "Page and size must be positive integers." });
+    }
+    const histories = await getHistoriesRepo(page, size, orderBy, dir);
     return res.status(200).json(histories);
   } catch (error) {
     console.error("Error listing histories:", error);
