@@ -46,7 +46,11 @@ export const getBookmarks = async (
     },
     limit: size,
     offset: (page - 1) * size,
-    order: [[orderBy, dir.toUpperCase()]],
+    order: [
+      orderBy === "name" || orderBy === "url"
+        ? [{ model: History, as: "history" }, orderBy, dir.toUpperCase()]
+        : [orderBy, dir.toUpperCase()],
+    ],
   });
 
   return {
