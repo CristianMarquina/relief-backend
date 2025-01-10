@@ -7,7 +7,7 @@ export const sequelize = new Sequelize({
   dialect: "postgres",
   host: process.env.DB_URL,
   username: process.env.DB_USER,
-  password: process.env.DB_PASS,
+  password: process.env.DB_PWD,
   database: process.env.DB_NAME,
   port: Number(process.env.DB_PORT),
   logging: false, // Opcional: desactiva logs SQL
