@@ -63,7 +63,8 @@ export class History extends Model {
 History.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,

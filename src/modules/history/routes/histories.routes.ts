@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { createHistory } from "../controllers/histories.controller";
+import {
+  createHistory,
+  listHistories,
+} from "../controllers/histories.controller";
+import { historySchema } from "../schemas/histories.schemas";
+import { validate } from "../../../utils/validate.middleware";
 
 const historiesRouter = Router();
 
@@ -8,6 +13,13 @@ const historiesRouter = Router();
  * @route POST /histories
  * @access Public
  */
-historiesRouter.post("/", createHistory);
+historiesRouter.post("/", validate(historySchema), createHistory);
+
+/**
+ * Route to list all history entries.
+ * @route GET /histories
+ * @access Public
+ */
+historiesRouter.get("/", listHistories);
 
 export default historiesRouter;

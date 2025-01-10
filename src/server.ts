@@ -5,7 +5,11 @@ import { router } from "./index.routes";
 
 const app = express();
 const PORT = 3000;
+// Apply middlewares before routes
 app.use(cors());
+app.use(express.json()); // Middleware for parsing JSON
+app.use(express.urlencoded({ extended: false })); // Middleware for parsing URL-encoded data
+
 app.use("/api/v1", router);
 const startServer = async () => {
   await conn();
