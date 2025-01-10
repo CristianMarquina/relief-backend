@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    container_name: my_postgres_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: relief_db
+    ports:
+      - "5436:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - relief-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: relief_backend
+    environment:
+      - NODE_ENV=development
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=relief_db
+      - POSTGRES_HOST=db
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - relief-network
+
+volumes:
+  pg_data:
+
+networks:
+  relief-network:
