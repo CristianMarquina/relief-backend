@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createHistory,
   listHistories,
+  deleteHistory,
 } from "../controllers/histories.controller";
 import { historySchema } from "../schemas/histories.schemas";
 import { validate } from "../../../utils/validate.middleware";
@@ -21,5 +22,12 @@ historiesRouter.post("/", validate(historySchema), createHistory);
  * @access Public
  */
 historiesRouter.get("/", listHistories);
+
+/**
+ * Route to delete a history .
+ * @route DELETE /histories/:id
+ * @access Public
+ */
+historiesRouter.delete("/:id", deleteHistory);
 
 export default historiesRouter;
