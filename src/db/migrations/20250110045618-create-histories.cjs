@@ -26,6 +26,14 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
         comment: "Unique identifier for each item",
       },
+      url: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        validate: {
+          len: [1, 255],
+        },
+        comment: "url of the history",
+      },
       name: {
         type: Sequelize.STRING(64),
         allowNull: false,
