@@ -1,6 +1,6 @@
 import express from "express";
 import historiesRouter from "./modules/history/routes/histories.routes";
-import bookmarksRouter from "./modules/bookmark/routes/histories.routes";
+import bookmarksRouter from "./modules/bookmark/routes/bookmarks.routes";
 
 const router = express.Router();
 
