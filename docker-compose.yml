@@ -27,7 +27,7 @@ services:
       POSTGRES_DB: relief_db
       POSTGRES_HOST: db
     ports:
-      - "3000:3000"
+      - "8000:8000"
     depends_on:
       - db
     networks:

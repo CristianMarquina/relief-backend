@@ -5,7 +5,7 @@ import { router } from "./index.routes";
 import { setupAssociations } from "./modules/bookmark/models/associations";
 
 const app = express();
-const PORT = 3000;
+const PORT = 8000;
 // Apply middlewares before routes
 app.use(cors());
 app.use(express.json()); // Middleware for parsing JSON
