@@ -38,6 +38,11 @@ export const createHistory = async (
     const history = await createHistoryRepo(name, url);
     res.status(200).json({
       message: "History created successfully.",
+      history: {
+        id: history.dataValues.id,
+        name: history.dataValues.name,
+        url: history.dataValues.url,
+      },
     });
   } catch (error) {
     console.error("Error creating history:", error);
