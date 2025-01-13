@@ -35,6 +35,9 @@ export const createBookmark = async (
     const bookmark = await createBookmarkRepo(historyid);
     res.status(200).json({
       message: "bookmark created successfully.",
+      bookmark: {
+        id: bookmark.dataValues.id,
+      },
     });
   } catch (error) {
     console.error("Error creating bookmark:", error);
