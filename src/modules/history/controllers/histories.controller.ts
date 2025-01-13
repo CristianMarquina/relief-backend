@@ -76,7 +76,7 @@ export const createHistory = async (
 export const listHistories = async (req: Request, res: Response) => {
   try {
     const page = parseInt(req.query.page as string) || 1;
-    const size = parseInt(req.query.size as string) || 10;
+    const size = parseInt(req.query.size as string) || 100;
     const orderBy = (req.query.orderby as string) || "createdAt"; // Por defecto, ordenar por 'name'
     const dir = (req.query.dir as string) || "DESC";
 
