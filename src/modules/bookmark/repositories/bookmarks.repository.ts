@@ -55,8 +55,8 @@ export const getBookmarks = async (
       model: History,
       as: "history",
       attributes: ["name", "url"],
-      where: { is_deleted: false },
     },
+    where: { is_deleted: false },
     limit: size,
     offset: (page - 1) * size,
     order: [
